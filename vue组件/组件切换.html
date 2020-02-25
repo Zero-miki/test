@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.v-enter,
+		.v-leave-to {
+			opacity: 0;
+			transform: translateX(150px);
+			/*定位去掉底下的滑动bug*/
+			position: absolute;
+		}
+		.v-enter-acive,
+		.v-leave-active {
+			transition: all 0.5s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="登录" @click.prevent="flag=true">
+		<input type="button" value="注册" @click.prevent="flag=false">
+
+		<!-- <a href="" @click.prevent="flag=true">登录</a>
+		<a href="" @click.prevent="flag=false">注册</a> -->
+
+		<login v-if='flag'></login>
+		<register v-else='flag'></register>		
+	</div>
+	
+	<hr>
+
+	<!-- 多于两个时的组件切换方式 -->
+	<div id="app2">
+		<input type="button" value="登录" @click.prevent="comName='login'">
+		<input type="button" value="注册" @click.prevent="comName='register'">
+		<input type="button" value="注销" @click.prevent="comName='logout'">
+		
+		<!-- component是一个占位符，:is是属性 -->
+		<transition mode="out-in">
+			<component :is="comName"></component>
+		</transition>
+	</div>
+
+	<script src="./lib/vue.js"></script>
+	<script>
+		Vue.component('login', {
+			template: '<h3>登录组件</h3>'
+		})
+
+		Vue.component('register', {
+			template: '<h3>注册组件</h3>'
+		})
+
+		Vue.component('logout', {
+			template: '<h3>注销组件</h3>'
+		})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				flag: true,
+			}
+		})
+
+		var vm2 = new Vue({
+			el: '#app2',
+			data: {
+				comName: 'login'
+			}
+		})
+	</script>
+</body>
+</html>

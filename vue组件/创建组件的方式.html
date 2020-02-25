@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<!-- 驼峰命名 -->
+		<!-- <my-com1></my-com1> -->
+		<!-- 非驼峰命名 -->
+		<mycom1></mycom1>	
+
+		<mycom2></mycom2>
+
+		<mycom3></mycom3>
+	</div>
+
+	<template id="tmp1">
+		<div>
+			<h2>通过tmeplate元素在外部定义组件结构</h2>
+			<span>xxxx</span>
+		</div>
+	</template>
+
+	<script src="./lib/vue.js"></script>
+	<script>
+		//1.使用Vue.extend 创建全局组件
+		// var com1 = Vue.extend({
+		// 	template: '<h3>这是使用Vue.extend创建的组件</h3>'
+		// })
+		//驼峰命名
+		// Vue.component('myCom1', com1)
+		//非驼峰命名
+		// Vue.component('mycom1', com1)
+		Vue.component('mycom1',Vue.extend({
+			template: '<h3>这是使用Vue.extend创建的组件</h3>'
+		}))
+
+		// 2.直接使用Vue.component创建
+		Vue.component('mycom2',{
+			// template属性指向的模板内容有且只能有唯一的一个根元素
+			template: '<div><h3>这是使用Vue.component创建的组件</h3><span>123</span></div>'
+		})
+
+		// 3.调用模板创建
+		Vue.component('mycom3', {
+			template: '#tmp1'
+		})
+
+		var vm = new Vue({
+			el: '#app',
+			data: {},
+			methods: {},
+			components: {
+				//私有组件
+			}
+		})
+	</script>
+</body>
+</html>
